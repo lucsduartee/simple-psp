@@ -22,3 +22,12 @@ model Transaction {
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
 }
+
+model Payable {
+  id        Int      @id @default(autoincrement())
+  status    String
+  fee       Float
+  dueDate   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
