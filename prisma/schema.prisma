@@ -27,7 +27,7 @@ model Payable {
   id        Int      @id @default(autoincrement())
   status    String
   fee       Float
-  dueDate   String
+  dueDate   DateTime
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
