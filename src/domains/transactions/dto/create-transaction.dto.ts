@@ -1,40 +1,51 @@
 import { IsNotEmpty } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
+export enum PaymentMethod {
+  debit_card = 'debit_card',
+  credit_card = 'debit_card',
+}
+
 export default class CreateTransactionBody {
-  @ApiProperty({ example: 1, description: 'The age of the Cat' })
+  @ApiProperty()
   @IsNotEmpty({
     message: 'Not should be empty',
   })
   amount: number;
 
+  @ApiProperty()
   @IsNotEmpty({
     message: 'Not should be empty',
   })
   description: string;
 
+  @ApiProperty({ enum: ['debit_card', 'credit_card'] })
   @IsNotEmpty({
     message: 'Not should be empty',
   })
   paymentMethod: string;
 
+  @ApiProperty()
   @IsNotEmpty({
     message: 'Not should be empty',
   })
-  creditCardNumber: string;
+  cardNumber: string;
 
+  @ApiProperty()
   @IsNotEmpty({
     message: 'Not should be empty',
   })
-  creditCardHolder: string;
+  cardHolder: string;
 
+  @ApiProperty()
   @IsNotEmpty({
     message: 'Not should be empty',
   })
-  creditCardDate: string;
+  cardDate: string;
 
+  @ApiProperty()
   @IsNotEmpty({
     message: 'Not should be empty',
   })
-  creditCardCVV: number;
+  cardCVV: number;
 }
