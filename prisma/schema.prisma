@@ -11,23 +11,26 @@ datasource db {
 }
 
 model Transaction {
-  id               Int      @id @default(autoincrement())
+  id               Int       @id @default(autoincrement())
   amount           Float
   description      String
   paymentMethod    String
-  creditCardNumber BigInt
+  creditCardNumber String
   creditCardHolder String
   creditCardDate   String
   creditCardCVV    Int
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
+  payables         Payable[]
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
 }
 
 model Payable {
-  id        Int      @id @default(autoincrement())
-  status    String
-  fee       Float
-  dueDate   DateTime
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id            Int         @id @default(autoincrement())
+  status        String
+  fee           Float
+  dueDate       String
+  transaction   Transaction @relation(fields: [transactionId], references: [id])
+  transactionId Int
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
 }
