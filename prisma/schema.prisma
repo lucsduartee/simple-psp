@@ -3,6 +3,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  binaryTargets = ["debian-openssl-1.1.x"]
 }
 
 datasource db {
@@ -15,10 +16,10 @@ model Transaction {
   amount           Float
   description      String
   paymentMethod    String
-  creditCardNumber String
-  creditCardHolder String
-  creditCardDate   String
-  creditCardCVV    Int
+  cardNumber String
+  cardHolder String
+  cardDate   String
+  cardCVV    Int
   payables         Payable[]
   createdAt        DateTime  @default(now())
   updatedAt        DateTime  @updatedAt
