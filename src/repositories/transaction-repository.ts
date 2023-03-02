@@ -1,15 +1,8 @@
 import { Transaction } from '@prisma/client';
+import CreateTransactionBody from 'src/domains/transactions/dto/create-transaction.dto';
 
 export abstract class TransactionRepository {
   abstract get(): Promise<Transaction[]>;
 
-  abstract create(
-    amount: number,
-    description: string,
-    paymentMethod: string,
-    creditCardNumber: number,
-    creditCardHolder: string,
-    creditCardDate: string,
-    creditCardCVV: number,
-  ): Promise<void>;
+  abstract create(transactionBody: CreateTransactionBody): Promise<Transaction>;
 }
