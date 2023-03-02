@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Transaction } from '@prisma/client';
 import { TransactionRepository } from 'src/repositories/transaction-repository';
 import CreateTransactionBody from './dto/create-transaction.dto';
@@ -16,14 +16,44 @@ export class TransactionService {
       creditCardNumber: this.maskCreditCard(rawCreditCardNumber),
     };
 
-    const test = await this.transactionRepository.create(transaction);
-
-    Logger.log(test);
-    return test;
+    return await this.transactionRepository.create(transaction);
   }
 
   async getTransactions(): Promise<Transaction[]> {
     return await this.transactionRepository.get();
+  }
+
+  async getTransactionById(id: string): Promise<Transaction> {
+    return await this.transactionRepository.getById(Number(id));
+  }
+
+  async getTransactionBalanceStatus(id: string) {
+    const { payables } = await this.transactionRepository.getPayablesInfo(
+      Number(id),
+    );
+
+    return payables.reduce(
+      (balance, { amount, status }) => {
+        switch (status) {
+          case 'paid':
+            return {
+              ...balance,
+              avaliable: (balance.avaliable += amount),
+            };
+          case 'waiting_funds':
+            return {
+              ...balance,
+              waiting_funds: (balance.waiting_funds += amount),
+            };
+          default:
+            break;
+        }
+      },
+      {
+        avaliable: 0,
+        waiting_funds: 0,
+      },
+    );
   }
 
   private maskCreditCard(creditCardNumber: string): string {
