@@ -10,10 +10,10 @@ export class TransactionService {
   async createTransaction(
     transactionBody: CreateTransactionBody,
   ): Promise<Transaction> {
-    const { creditCardNumber: rawCreditCardNumber } = transactionBody;
+    const { cardNumber: rawcardNumber } = transactionBody;
     const transaction: CreateTransactionBody = {
       ...transactionBody,
-      creditCardNumber: this.maskCreditCard(rawCreditCardNumber),
+      cardNumber: this.maskcard(rawcardNumber),
     };
 
     return await this.transactionRepository.create(transaction);
@@ -56,7 +56,7 @@ export class TransactionService {
     );
   }
 
-  private maskCreditCard(creditCardNumber: string): string {
-    return creditCardNumber.slice(-4);
+  private maskcard(cardNumber: string): string {
+    return cardNumber.slice(-4);
   }
 }
