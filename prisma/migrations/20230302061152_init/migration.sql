@@ -17,6 +17,7 @@ CREATE TABLE "Transaction" (
 -- CreateTable
 CREATE TABLE "Payable" (
     "id" SERIAL NOT NULL,
+    "amount" DOUBLE PRECISION NOT NULL,
     "status" TEXT NOT NULL,
     "fee" DOUBLE PRECISION NOT NULL,
     "dueDate" TEXT NOT NULL,
@@ -28,4 +29,4 @@ CREATE TABLE "Payable" (
 );
 
 -- AddForeignKey
-ALTER TABLE "Payable" ADD CONSTRAINT "Payable_transactionId_fkey" FOREIGN KEY ("transactionId") REFERENCES "Transaction"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Payable" ADD CONSTRAINT "Payable_transactionId_fkey" FOREIGN KEY ("transactionId") REFERENCES "Transaction"("id") ON DELETE CASCADE ON UPDATE CASCADE;
