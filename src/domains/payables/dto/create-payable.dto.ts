@@ -15,4 +15,9 @@ export default class CreatePayableBody {
     message: 'Not should be empty',
   })
   dueDate: string;
+
+  @IsNotEmpty({
+    message: 'Not shoud be empty',
+  })
+  amount: string;
 }

@@ -8,6 +8,7 @@ class PayableService {
       dueDate: this.payableDueData(paymentMethod),
       fee: this.payableFee(paymentMethod, amount),
       status: this.payableStatus(paymentMethod),
+      amount: amount - this.payableFee(paymentMethod, amount),
     };
   }
 
